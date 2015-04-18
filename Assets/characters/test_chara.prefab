@@ -70,9 +70,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ef56a479acaad4182a385176b0e060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHp: 100
-  baseEloquency: 100
-  baseSpeed: 3
+  m_maxHoldTime: .300000012
+  m_defaultAttack:
+    type: 1
+    available: 1
+    minCost: 1
+    maxCost: 1
+    minDamage: 5
+    maxDamage: 5
+    minRadius: 1
+    maxRadius: 1
+    minEffectTime: 0
+    maxEffectTime: 0
+    cooldown: 0
+    icon: {fileID: 0}
+  m_specialAttacks:
+  - type: 2
+    available: 1
+    minCost: 15
+    maxCost: 50
+    minDamage: 0
+    maxDamage: 0
+    minRadius: 1
+    maxRadius: 2.20000005
+    minEffectTime: 1
+    maxEffectTime: 3
+    cooldown: 5
+    icon: {fileID: 0}
+  m_selectedSpecialIdx: 0
+  m_baseHp: 100
+  m_baseEloquency: 100
+  m_baseSpeed: 3
+  m_refillRate: 10
+  m_defaultAttackStart: -1
+  m_specialAttackActiveStart: -1
+  m_specialAttackCooldownStart: -1
 --- !u!212 &21294972
 SpriteRenderer:
   m_ObjectHideFlags: 1
