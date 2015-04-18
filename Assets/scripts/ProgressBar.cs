@@ -50,8 +50,23 @@ public class ProgressBar : MonoBehaviour
 
     SpriteRenderer BuildSection (string name, Sprite spriteRef, Color tint, float width, float height, string sortingLayerName, int sortingLayerOrder)
     {
-        GameObject obj = new GameObject();
-        SpriteRenderer rendererRef = obj.AddComponent<SpriteRenderer>();
+        Transform child = transform.FindChild(name);
+        GameObject obj = null;
+        
+        if (child == null)
+        {
+            obj = new GameObject();              
+        }
+        else
+        {
+            obj = child.gameObject;
+        }
+        
+        SpriteRenderer rendererRef = obj.GetComponent<SpriteRenderer>();
+        if (rendererRef == null)
+        {
+            rendererRef = obj.AddComponent<SpriteRenderer>();
+        }
         rendererRef.sprite = spriteRef;
         
         if (tint != s_nullColour)

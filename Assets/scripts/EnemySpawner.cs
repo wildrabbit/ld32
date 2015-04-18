@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour 
 {
@@ -17,8 +18,15 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public Enemy OnLoadLevel ()
+    public Enemy OnLoadLevel (List<string> deadEnemies)
     {
+        if (deadEnemies != null && deadEnemies.Contains(this.name))
+        {
+            m_enabled = false;
+            gameObject.SetActive(false);
+            return null;
+        }
+
         Enemy e = null;
         if (m_enabled)
         {
@@ -44,6 +52,7 @@ public class EnemySpawner : MonoBehaviour
             if (m_enemyPrefabs[idx] != null)
             {
                 e = Instantiate<Enemy>(m_enemyPrefabs[idx]);
+                e.name = this.name;
                 e.LoadLevel(transform.position, patrolPoints);
             }
         }

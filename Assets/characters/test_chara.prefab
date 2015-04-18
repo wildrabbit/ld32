@@ -78,34 +78,36 @@ MonoBehaviour:
   m_defaultAttack:
     type: 1
     available: 1
-    minCost: 1
-    maxCost: 1
+    minCost: 5
+    maxCost: 5
     minDamage: 5
     maxDamage: 5
     minRadius: 1
     maxRadius: 1
+    castTime: .100000001
     minEffectTime: 0
     maxEffectTime: 0
-    cooldown: 0
+    cooldown: .25
     icon: {fileID: 0}
   m_specialAttacks:
   - type: 2
     available: 1
-    minCost: 15
+    minCost: 25
     maxCost: 50
     minDamage: 0
     maxDamage: 0
     minRadius: 1
     maxRadius: 2.20000005
+    castTime: .100000001
     minEffectTime: 1
     maxEffectTime: 3
-    cooldown: 5
+    cooldown: 3
     icon: {fileID: 0}
   m_selectedSpecialIdx: 0
   m_baseHp: 100
   m_baseEloquency: 100
   m_baseSpeed: 3
-  m_refillRate: 10
+  m_refillRate: 2
   m_defaultAttackStart: -1
   m_specialAttackActiveStart: -1
   m_specialAttackCooldownStart: -1

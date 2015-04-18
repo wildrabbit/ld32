@@ -14,7 +14,7 @@ public class Level : MonoBehaviour
         // TODO: Set state and so on
     }
 
-    public void LoadLevel (ref Player player, ref List<Enemy> enemies)
+    public void LoadLevel (ref Player player, ref List<Enemy> enemies, GameSession session)
     {
         Transform playerStart = transform.FindChild("playerStart");
         if (playerStart != null)
@@ -23,14 +23,23 @@ public class Level : MonoBehaviour
         }
         GameObject playerGO = Instantiate<GameObject>(m_playerPrefab);
         player = playerGO.GetComponent<Player>();
-        player.OnLoadLevel(m_playerStart, GameObject.Find("HP").GetComponent<ProgressBar>(), GameObject.Find("Eloquency").GetComponent<ProgressBar>());
+        player.OnLoadLevel(m_playerStart, GameObject.Find("HP").GetComponent<ProgressBar>(), GameObject.Find("Eloquence").GetComponent<ProgressBar>());
+        if (session != null)
+        {
+            player.LoadSession(session);
+        }
 
         m_enemySpawners = GetComponentsInChildren<EnemySpawner>();
         int numSpawners = m_enemySpawners.Length;
         Enemy e = null;
+        List<string> deadEnemies = null;
+        if (session != null && session.m_levelStates.ContainsKey(name))
+        {
+            deadEnemies = session.m_levelStates[name].m_deadEnemies;
+        }
         for (int i = 0; i < numSpawners; ++i)
         {
-            e = m_enemySpawners[i].OnLoadLevel();
+            e = m_enemySpawners[i].OnLoadLevel(deadEnemies);
             if (e != null)
             {
                 enemies.Add(e);

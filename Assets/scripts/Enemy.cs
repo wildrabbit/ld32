@@ -47,7 +47,10 @@ public class Enemy : MonoBehaviour
     public int m_baseHP = 100;
     private int m_hp= 100;
 
-    private bool m_charmed = false;
+    //private bool m_charmed = false;
+    private float m_specialInflictedStart = -1.0f;
+    private float m_specialInflictedTime = -1.0f;
+    private AttackType m_specialInflictedType = AttackType.kNone;
 
     private Player m_playerRef = null;
 
@@ -62,7 +65,7 @@ public class Enemy : MonoBehaviour
 	void Start () 
     {
         m_hp = m_baseHP;
-        m_charmed = false;
+        //m_charmed = false;
         m_playerRef = GameManager.Instance.GetPlayer();
         m_playerRef.m_OnDead += OnPlayerDied;
         m_startAttack = -1;
@@ -100,7 +103,7 @@ public class Enemy : MonoBehaviour
             go.transform.parent = this.transform;
             go.transform.localPosition = new Vector3(0.0f, -0.09f, 0.0f);
             m_hpBar = go.GetComponent<ProgressBar>();
-            m_hpBar.Build(m_hp / (float)m_baseHP, 0.0f, "hud");
+            m_hpBar.Build(m_hp / (float)m_baseHP, 0.0f, "units");
             Vector3 adjustPosition = m_hpBar.transform.localPosition;
             adjustPosition.x = -(m_hpBar.width * GameManager.kUnitsPerPixel * 0.5f);
             m_hpBar.transform.localPosition = adjustPosition;
@@ -130,6 +133,7 @@ public class Enemy : MonoBehaviour
                 {
                     m_targetPosition = m_startPosition;
                 }
+                m_currentSpeed = 0.0f;
                 break;
             }
             case EnemyState.kPatrol:
@@ -160,6 +164,8 @@ public class Enemy : MonoBehaviour
             }
             case EnemyState.kStun:
             {
+                m_specialInflictedStart = Time.time;
+                m_currentSpeed = 0.0f;
                 break;
             }
             case EnemyState.kHit:
@@ -235,6 +241,15 @@ public class Enemy : MonoBehaviour
             }
             case EnemyState.kStun:
             {
+                if (m_specialInflictedStart >= 0.0f && Time.time - m_specialInflictedStart >= m_specialInflictedTime)
+                {
+                    next = m_previousState;
+                    m_specialInflictedTime = -1.0f;
+                    m_specialInflictedStart = -1.0f;
+                    Debug.Log("ENEMY stops being stunned!");
+                    m_specialInflictedType = AttackType.kNone;
+                    m_previousState = EnemyState.kNone;
+                }
                 break;
             }
             case EnemyState.kHit:
@@ -259,7 +274,7 @@ public class Enemy : MonoBehaviour
         m_velocity = (m_targetPosition - transform.position);
         m_velocity.Normalize();
 
-        if (m_velocity != Vector3.zero)
+        if (m_velocity != Vector3.zero && !Mathf.Approximately(m_currentSpeed, 0.0f))
         {
             transform.Translate(m_velocity * Time.deltaTime * m_currentSpeed);
         }
@@ -451,6 +466,35 @@ public class Enemy : MonoBehaviour
             }
         }
         m_hpBar.SetValue(m_hp / (float)m_baseHP);
+    }
+
+    public void OnPlayerUsedSpecialAttack (AttackType attackType, float effectiveTime)
+    {
+        if (m_currentState == EnemyState.kDying || m_currentState == EnemyState.kDead || m_currentState == EnemyState.kNone)
+        {
+            return;
+        }
+
+        switch (attackType)
+        {
+            case AttackType.kStun:
+                {
+                    if (m_currentState == EnemyState.kStun)
+                    {
+                        m_specialInflictedStart = Time.time;
+                    }
+                    else
+                    {
+                        m_specialInflictedType = attackType;
+                        m_previousState = m_currentState;
+                        m_specialInflictedTime = effectiveTime;
+                        Debug.Log("ENEMY:: became stunned!");
+                        ChangeState(EnemyState.kStun);
+                    }
+                    break;
+                }
+            default: break;
+        }
     }
 
     public IEnumerator Fadeout()
