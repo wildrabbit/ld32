@@ -17,6 +17,8 @@ public enum EnemyState
 
 public class Enemy : MonoBehaviour 
 {
+    public GameObject m_hpBarPrefab = null;
+
     public float m_maxSpeedThreshold = 0.75f;
     public float m_approachThreshold = 0.005f;
     public float m_detectRadius = 2.0f;
@@ -28,6 +30,7 @@ public class Enemy : MonoBehaviour
 
     public float m_attackCooldown = 1.5f;
     private float m_startAttack = 0.0f;
+    private bool m_frozenCooldown = false;
 
     public Vector3[] m_patrolPoints = new Vector3[0];
     private int m_numPatrolPoints = 0;
@@ -39,20 +42,28 @@ public class Enemy : MonoBehaviour
     private Vector3 m_velocity = Vector3.zero;
     private float m_currentSpeed = 0.0f;
     private EnemyState m_currentState = EnemyState.kNone;
+    private EnemyState m_previousState = EnemyState.kNone;
 
     public int m_baseHP = 100;
     private int m_hp= 100;
 
     private bool m_charmed = false;
 
-    private PlayerCharacterControl m_playerRef = null;
+    private Player m_playerRef = null;
+
+    public delegate void OnDead(Enemy e);
+    public OnDead m_OnDead;
+
+    private BoxCollider2D m_colliderRef = null;
+    private SpriteRenderer m_spriteRendererRef = null;
+    private ProgressBar m_hpBar = null;
 
 	// Use this for initialization
 	void Start () 
     {
         m_hp = m_baseHP;
         m_charmed = false;
-        m_playerRef = GameObject.FindObjectOfType<PlayerCharacterControl>();
+        m_playerRef = GameManager.Instance.GetPlayer();
         m_playerRef.m_OnDead += OnPlayerDied;
         m_startAttack = -1;
         if (m_numPatrolPoints > 1)
@@ -63,6 +74,7 @@ public class Enemy : MonoBehaviour
         {
             ChangeState(EnemyState.kIdle);
         }
+
 	}
 	
 	// Update is called once per frame
@@ -73,11 +85,26 @@ public class Enemy : MonoBehaviour
 
     public void LoadLevel (Vector3 startPos, Vector3[] patrolPoints)
     {
+        m_colliderRef = GetComponent<BoxCollider2D>();
+        m_spriteRendererRef = GetComponent<SpriteRenderer>();
+        
         m_startPosition = startPos;
         m_patrolPoints = patrolPoints;
         m_numPatrolPoints = m_patrolPoints.Length;
         m_currentIdx = 0;
         transform.position = m_startPosition;
+
+        if (m_hpBarPrefab != null)
+        {
+            GameObject go = Instantiate<GameObject>(m_hpBarPrefab);
+            go.transform.parent = this.transform;
+            go.transform.localPosition = new Vector3(0.0f, -0.09f, 0.0f);
+            m_hpBar = go.GetComponent<ProgressBar>();
+            m_hpBar.Build(m_hp / (float)m_baseHP, 0.0f, "hud");
+            Vector3 adjustPosition = m_hpBar.transform.localPosition;
+            adjustPosition.x = -(m_hpBar.width * GameManager.kUnitsPerPixel * 0.5f);
+            m_hpBar.transform.localPosition = adjustPosition;
+        }
     }
 
     public void UnloadLevel()
@@ -121,7 +148,14 @@ public class Enemy : MonoBehaviour
             {
                 m_targetPosition = m_playerRef.transform.position;
                 DetermineSpeed(Vector3.Distance(transform.position, m_targetPosition), m_chaseSpeed);
-                m_startAttack = -1.0f;
+                if (!m_frozenCooldown)
+                {
+                    m_startAttack = -1.0f;
+                }
+                else
+                {
+                    m_frozenCooldown = false;
+                }
                 break;
             }
             case EnemyState.kStun:
@@ -130,14 +164,20 @@ public class Enemy : MonoBehaviour
             }
             case EnemyState.kHit:
             {
+                Debug.Log("ENEMY::Ouch! I was hit!!");
                 break;
             }
             case EnemyState.kDying:
             {
+                StartCoroutine(Fadeout());
                 break;
             }
             case EnemyState.kDead:
             {
+                if (m_OnDead != null)
+                {
+                    m_OnDead(this);
+                }
                 break;
             }
             default: break;
@@ -148,6 +188,12 @@ public class Enemy : MonoBehaviour
     {
         switch (m_currentState)
         {
+            case EnemyState.kDead:
+                {
+                    m_OnDead = null;
+                    GameObject.Destroy(gameObject);
+                    break;
+                }
             default: break;
         }
     }
@@ -155,6 +201,11 @@ public class Enemy : MonoBehaviour
     void UpdateState ()
     {
         if (m_currentState == EnemyState.kNone) return;
+        if (m_playerRef == null || transform == null)
+        {
+            Debug.Break();
+        }
+
 
         EnemyState next = m_currentState;
         Vector3 m_playerVec = m_playerRef.transform.position - transform.position;
@@ -188,6 +239,8 @@ public class Enemy : MonoBehaviour
             }
             case EnemyState.kHit:
             {
+                next = m_previousState;
+                m_previousState = EnemyState.kNone;
                 break;
             }
             case EnemyState.kDying:
@@ -196,6 +249,7 @@ public class Enemy : MonoBehaviour
             }
             case EnemyState.kDead:
             {
+                next = EnemyState.kNone;
                 break;
             }
             default: break;
@@ -376,5 +430,39 @@ public class Enemy : MonoBehaviour
     {
         m_playerRef = null;
         ChangeState(EnemyState.kNone);
+    }
+
+    public void OnPlayerUsedDefaultAttack (int damage)
+    {
+        if (m_playerRef != null)
+        {
+            m_hp -= damage;
+            Debug.Log ("Ouch!");
+            if (m_hp <= 0)
+            {
+                m_hp = 0;
+                ChangeState(EnemyState.kDying);
+            }
+            else
+            {
+                m_previousState = m_currentState;
+                m_frozenCooldown = true;
+                ChangeState(EnemyState.kHit);
+            }
+        }
+        m_hpBar.SetValue(m_hp / (float)m_baseHP);
+    }
+
+    public IEnumerator Fadeout()
+    {
+        while (m_spriteRendererRef.color.a > 0.0f)
+        {
+            Color c = m_spriteRendererRef.color;
+            c.a -= 0.1f;
+            m_spriteRendererRef.color = c;
+            yield return new WaitForSeconds(0.05f);
+        }
+        ChangeState(EnemyState.kDead);
+        yield return null;
     }
 }

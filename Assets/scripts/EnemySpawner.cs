@@ -17,8 +17,9 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void OnLoadLevel ()
+    public Enemy OnLoadLevel ()
     {
+        Enemy e = null;
         if (m_enabled)
         {
             Transform[] patrolTransforms = GetComponentsInChildren<Transform>();
@@ -42,11 +43,12 @@ public class EnemySpawner : MonoBehaviour
             int idx = Random.Range(0, m_enemyPrefabs.Length);
             if (m_enemyPrefabs[idx] != null)
             {
-                Enemy enemy = Instantiate<Enemy>(m_enemyPrefabs[idx]);
-                enemy.LoadLevel(transform.position, patrolPoints);
+                e = Instantiate<Enemy>(m_enemyPrefabs[idx]);
+                e.LoadLevel(transform.position, patrolPoints);
             }
         }
         gameObject.SetActive(false);
+        return e;
     }
 
 	// Use this for initialization

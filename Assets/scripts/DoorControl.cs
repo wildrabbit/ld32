@@ -33,26 +33,11 @@ public class DoorControl : MonoBehaviour
     {
         if (!m_inside)
         {
-            PlayerCharacterControl player = other.GetComponent<PlayerCharacterControl>();
+            Player player = other.GetComponent<Player>();
             if (player != null && m_levelRef != null)
             {
                 // TODO: Defer this to a proper level controller class
-                Debug.LogFormat("Player in!! Now loading {0}", m_levelRef.name);
-                Level l = GameObject.FindObjectOfType<Level>();
-                if (l != null)
-                {
-                    l.UnloadLevel();
-                }
-
-                player.UnloadLevel();
-
-                Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
-                for (int i = 0; i < enemies.Length; ++i)
-                {
-                    enemies[i].UnloadLevel();
-                }
-
-                GameObject newLevel = Instantiate<GameObject>(m_levelRef);
+                GameManager.Instance.ChangeLevel(m_levelRef.GetComponent<Level>());
             }
             m_inside = true;
         }
@@ -60,7 +45,7 @@ public class DoorControl : MonoBehaviour
 
     void OnTriggerExit2D (Collider2D other)
     {
-        if (m_inside &&  other.GetComponent<PlayerCharacterControl>() != null)
+        if (m_inside &&  other.GetComponent<Player>() != null)
         {
             m_inside = false;
         }

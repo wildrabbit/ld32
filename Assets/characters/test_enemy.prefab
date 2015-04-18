@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e804003aaa67ddb40ac78f300f429d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_hpBarPrefab: {fileID: 142604, guid: a839004ac1de7f34cbcc9ca26c8e6456, type: 2}
   m_maxSpeedThreshold: .25
   m_approachThreshold: .00999999978
   m_detectRadius: 2

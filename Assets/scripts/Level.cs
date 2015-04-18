@@ -14,23 +14,32 @@ public class Level : MonoBehaviour
         // TODO: Set state and so on
     }
 
-    void Start () 
+    public void LoadLevel (ref Player player, ref List<Enemy> enemies)
     {
         Transform playerStart = transform.FindChild("playerStart");
         if (playerStart != null)
         {
             m_playerStart = playerStart.position;
         }
-        GameObject player = Instantiate<GameObject>(m_playerPrefab);
-        PlayerCharacterControl playerRef = player.GetComponent<PlayerCharacterControl>();
-        playerRef.Initialize(m_playerStart, GameObject.Find("HP").GetComponent<ProgressBar>(), GameObject.Find("Eloquency").GetComponent<ProgressBar>());
-        
+        GameObject playerGO = Instantiate<GameObject>(m_playerPrefab);
+        player = playerGO.GetComponent<Player>();
+        player.OnLoadLevel(m_playerStart, GameObject.Find("HP").GetComponent<ProgressBar>(), GameObject.Find("Eloquency").GetComponent<ProgressBar>());
+
         m_enemySpawners = GetComponentsInChildren<EnemySpawner>();
         int numSpawners = m_enemySpawners.Length;
+        Enemy e = null;
         for (int i = 0; i < numSpawners; ++i)
         {
-            m_enemySpawners[i].OnLoadLevel();
+            e = m_enemySpawners[i].OnLoadLevel();
+            if (e != null)
+            {
+                enemies.Add(e);
+            }
         }
+    }
+
+    void Start () 
+    {        
 	}
 
 	// Update is called once per frame

@@ -70,7 +70,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ef56a479acaad4182a385176b0e060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHoldTime: .300000012
+  defaultAttackButtonName: DefaultAttack
+  specialAttackButtonName: SpecialAttack
+  cycleSpecialNextButtonName: NextSpecial
+  cycleSpecialPrevButtonName: PrevSpecial
+  m_maxHoldTime: 1
   m_defaultAttack:
     type: 1
     available: 1

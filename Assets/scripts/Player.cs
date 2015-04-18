@@ -33,8 +33,13 @@ public class AttackConfig
 }
 
 
-public class PlayerCharacterControl : MonoBehaviour 
+public class Player : MonoBehaviour 
 {
+    public string defaultAttackButtonName = "";
+    public string specialAttackButtonName = "";
+    public string cycleSpecialNextButtonName = "";
+    public string cycleSpecialPrevButtonName = "";
+
     public float m_maxHoldTime = 0.3f; //Keep button pressed to raise effects to max
 
     public AttackConfig m_defaultAttack = new AttackConfig();
@@ -47,6 +52,9 @@ public class PlayerCharacterControl : MonoBehaviour
     public int m_refillRate = 10;   // 4 units per second?
 
     //------------------
+    private float m_defaultAttackDownTime = -1.0f;
+    private float m_specialAttackDownTime = -1.0f;
+
     public float m_defaultAttackStart = -1.0f;
     public float m_specialAttackActiveStart = -1.0f;
     public float m_specialAttackCooldownStart = -1.0f;
@@ -67,13 +75,16 @@ public class PlayerCharacterControl : MonoBehaviour
     //-----------------------------
 
     //-----------------------------
-    public void Initialize(Vector3 position, ProgressBar hpBar, ProgressBar eloquencyBar)
+    public void OnLoadLevel(Vector3 position, ProgressBar hpBar, ProgressBar eloquencyBar)
     {
         transform.position = position;
         m_hp = m_baseHp;
         m_eloquency = m_baseEloquency;
         SetHPBar(hpBar);
         SetEloquencyBar(eloquencyBar);
+
+        m_defaultAttackDownTime = -1.0f;
+        m_specialAttackDownTime = -1.0f;
     }
 
 	// Use this for initialization
@@ -94,7 +105,70 @@ public class PlayerCharacterControl : MonoBehaviour
         movement.y = yValue;
         movement.Normalize();
         movement *= m_baseSpeed;
-        GetComponent<Rigidbody2D>().velocity = movement;
+        m_bodyRef.velocity = movement;
+
+        if (m_defaultAttackStart >= 0 && Time.time - m_defaultAttackStart >= m_defaultAttack.cooldown)
+        {
+            m_defaultAttackStart = -1.0f;
+        }
+
+        // Default attack stuff
+        if (Input.GetButtonDown(defaultAttackButtonName))
+        {
+            
+        }
+        else if (Input.GetButtonUp(defaultAttackButtonName))
+        {
+            if (m_eloquency >= m_defaultAttack.minCost && m_defaultAttackStart < 0)
+            {
+                Enemy e = GameManager.Instance.GetClosestEnemy(transform.position);
+                if (e != null && Vector3.Distance(transform.position, e.transform.position) <= m_defaultAttack.minRadius)
+                {
+                    Debug.Log("Insulting!!!");
+                    e.OnPlayerUsedDefaultAttack(m_defaultAttack.minDamage);
+                    m_defaultAttackStart = Time.time;
+                    m_eloquency -= m_defaultAttack.minCost;
+                    if (m_eloquency <= 0.0f)
+                    {
+                        m_eloquency = 0.0f;
+                    }
+                    
+                    if (m_eloquencyBar != null)
+                    {
+                        m_eloquencyBar.SetValue(m_eloquency / m_baseEloquency);
+                    }
+                    // Update eloquency feedback
+                }
+            }
+        }
+        else if (Input.GetButton(defaultAttackButtonName))
+        {
+
+        }
+
+        if (Input.GetButtonDown(specialAttackButtonName))
+        {
+            Debug.Log("Pressed Special!");
+        }
+        else if (Input.GetButtonUp(specialAttackButtonName))
+        {
+
+        }
+        else if (Input.GetButton(specialAttackButtonName))
+        {
+
+        }
+
+        // Cycling specials
+        if (Input.GetButtonDown(cycleSpecialNextButtonName))
+        {
+            Debug.Log("Pressed Next!");
+        }
+        else if (Input.GetButtonDown(cycleSpecialPrevButtonName))
+        {
+            Debug.Log("Pressed Prev!");
+        }
+        
 	}
 
     public void UnloadLevel ()
@@ -137,6 +211,7 @@ public class PlayerCharacterControl : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
         m_OnDead();
+        m_OnDead = null;
         GameObject.Destroy(gameObject);
         yield return null;
     }
