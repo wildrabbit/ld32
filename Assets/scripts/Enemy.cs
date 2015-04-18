@@ -24,6 +24,11 @@ public class Enemy : MonoBehaviour
     public float m_patrolSpeed = 3.0f;
     public float m_chaseSpeed = 5.0f;
 
+    public int m_damage = 5;
+
+    public float m_attackCooldown = 1.5f;
+    private float m_startAttack = 0.0f;
+
     public Vector3[] m_patrolPoints = new Vector3[0];
     private int m_numPatrolPoints = 0;
     private bool m_reversePatrol = false;
@@ -48,6 +53,8 @@ public class Enemy : MonoBehaviour
         m_hp = m_baseHP;
         m_charmed = false;
         m_playerRef = GameObject.FindObjectOfType<PlayerCharacterControl>();
+        m_playerRef.m_OnDead += OnPlayerDied;
+        m_startAttack = -1;
         if (m_numPatrolPoints > 1)
         {
             ChangeState(EnemyState.kPatrol);
@@ -101,6 +108,36 @@ public class Enemy : MonoBehaviour
             case EnemyState.kPatrol:
             {
                 m_targetPosition = m_patrolPoints[m_currentIdx];
+                DetermineSpeed(Vector3.Distance(transform.position, m_targetPosition), m_patrolSpeed);
+                break;
+            }
+            case EnemyState.kChase:
+            {
+                m_targetPosition = m_playerRef.transform.position;
+                DetermineSpeed(Vector3.Distance(transform.position, m_targetPosition), m_chaseSpeed);
+                break;
+            }
+            case EnemyState.kAttack:
+            {
+                m_targetPosition = m_playerRef.transform.position;
+                DetermineSpeed(Vector3.Distance(transform.position, m_targetPosition), m_chaseSpeed);
+                m_startAttack = -1.0f;
+                break;
+            }
+            case EnemyState.kStun:
+            {
+                break;
+            }
+            case EnemyState.kHit:
+            {
+                break;
+            }
+            case EnemyState.kDying:
+            {
+                break;
+            }
+            case EnemyState.kDead:
+            {
                 break;
             }
             default: break;
@@ -117,6 +154,8 @@ public class Enemy : MonoBehaviour
 
     void UpdateState ()
     {
+        if (m_currentState == EnemyState.kNone) return;
+
         EnemyState next = m_currentState;
         Vector3 m_playerVec = m_playerRef.transform.position - transform.position;
         float playerDistance = m_playerVec.magnitude;
@@ -131,6 +170,32 @@ public class Enemy : MonoBehaviour
             case EnemyState.kPatrol:
             {
                 next = UpdatePatrol(playerDistance);
+                break;
+            }
+            case EnemyState.kChase:
+            {
+                next = UpdateChase(m_playerVec, playerDistance);
+                break;
+            }
+            case EnemyState.kAttack:
+            {
+                next = UpdateAttack(m_playerVec, playerDistance);
+                break;
+            }
+            case EnemyState.kStun:
+            {
+                break;
+            }
+            case EnemyState.kHit:
+            {
+                break;
+            }
+            case EnemyState.kDying:
+            {
+                break;
+            }
+            case EnemyState.kDead:
+            {
                 break;
             }
             default: break;
@@ -204,18 +269,112 @@ public class Enemy : MonoBehaviour
             }
             m_targetPosition = m_patrolPoints[m_currentIdx];
         }
+
+        DetermineSpeed(distanceToTarget, m_patrolSpeed);
         
+        return EnemyState.kPatrol;
+    }
+
+    EnemyState UpdateAttack(Vector3 chaseDirection, float targetDistance)
+    {
+        if (targetDistance > m_attackRadius)
+        {
+            if (targetDistance < m_detectRadius)
+            {
+                DetermineSpeed(targetDistance, m_chaseSpeed);
+                return EnemyState.kChase;
+            }
+            else
+            {
+                DetermineSpeed(targetDistance, m_patrolSpeed);
+                return (m_numPatrolPoints > 1 ? EnemyState.kPatrol : EnemyState.kIdle);
+            }
+        }
+
+        if (m_startAttack < 0)
+        {
+            Debug.Log("Attacking player!");
+            m_playerRef.OnEnemyAttacked(this);
+            m_startAttack = Time.time;
+        }
+        else if (Time.time - m_startAttack >= m_attackCooldown)
+        {
+            m_startAttack = -1.0f;
+        }
+
+        m_targetPosition = m_playerRef.transform.position;
+        DetermineSpeed(targetDistance, m_chaseSpeed);
+     
+        return EnemyState.kAttack;
+    }
+
+    EnemyState UpdateChase(Vector3 chaseDirection, float targetDistance)
+    {
+        if (targetDistance > m_detectRadius)
+        {
+            DetermineSpeed(targetDistance, m_patrolSpeed);
+
+            if (m_numPatrolPoints > 1)
+            { 
+                return EnemyState.kPatrol;
+            }
+            else
+            {
+                return EnemyState.kIdle;
+            }
+        }
+        else if (targetDistance< m_attackRadius)
+        {
+            DetermineSpeed(targetDistance, m_chaseSpeed);
+            return EnemyState.kAttack;
+        }
+
+        m_targetPosition = m_playerRef.transform.position;
+        Vector3 noise = new Vector3(-0.15f + Random.Range(0.0f, 0.3f), -0.15f + Random.Range(0.0f, 0.3f), 0.0f);
+        m_targetPosition += noise;
+
+        RaycastHit2D obstacleHit = Physics2D.Raycast(transform.position, chaseDirection, targetDistance);
+        if (obstacleHit.collider != null && obstacleHit.collider.transform != m_playerRef.transform)
+        {
+            if (chaseDirection.x > chaseDirection.y)
+            {
+                bool offsetDir = Random.Range(0.0f, 1.0f) > 0.5;
+                float amount = Random.Range(0.0f, 0.5f);
+                chaseDirection.x += (offsetDir)?amount : -amount;
+            }
+            else
+            {
+                bool offsetDir = Random.Range(0.0f, 1.0f) > 0.5;
+                float amount = Random.Range(0.0f, 0.5f);
+                chaseDirection.y += (offsetDir) ? amount : -amount;
+            }
+            chaseDirection.Normalize();
+            chaseDirection *= targetDistance;
+            m_targetPosition = transform.position + chaseDirection;
+        }
+        DetermineSpeed(targetDistance, m_chaseSpeed);
+
+        return EnemyState.kChase;
+    }
+
+    void DetermineSpeed(float distanceToTarget, float maxSpeed)
+    {
         if (distanceToTarget <= m_maxSpeedThreshold)
         {
             float range = m_maxSpeedThreshold - m_approachThreshold;
             float distanceRatio = distanceToTarget / range;
 
-            m_currentSpeed = m_patrolSpeed - Mathf.Lerp(0.0f, 1.0f, distanceRatio);
+            m_currentSpeed = maxSpeed - Mathf.Lerp(0.0f, 1.0f, distanceRatio);
         }
         else
         {
-            m_currentSpeed = m_patrolSpeed;        
+            m_currentSpeed = maxSpeed;
         }
-        return EnemyState.kPatrol;
+    }
+
+    public void OnPlayerDied ()
+    {
+        m_playerRef = null;
+        ChangeState(EnemyState.kNone);
     }
 }

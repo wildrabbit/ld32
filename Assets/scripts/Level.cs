@@ -22,7 +22,8 @@ public class Level : MonoBehaviour
             m_playerStart = playerStart.position;
         }
         GameObject player = Instantiate<GameObject>(m_playerPrefab);
-        player.transform.position = m_playerStart;
+        PlayerCharacterControl playerRef = player.GetComponent<PlayerCharacterControl>();
+        playerRef.Initialize(m_playerStart, GameObject.Find("HP").GetComponent<ProgressBar>());
         
         m_enemySpawners = GetComponentsInChildren<EnemySpawner>();
         int numSpawners = m_enemySpawners.Length;

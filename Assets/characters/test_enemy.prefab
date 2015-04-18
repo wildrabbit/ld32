@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21206760}
   - 61: {fileID: 6166078}
   - 114: {fileID: 11426428}
+  - 50: {fileID: 5020448}
   m_Layer: 0
   m_Name: test_enemy
   m_TagString: Untagged
@@ -30,6 +31,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5020448
+Rigidbody2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172838}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_FixedAngle: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
 --- !u!61 &6166078
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -40,9 +56,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .400000006}
+  m_Offset: {x: 0, y: .242818356}
   serializedVersion: 2
-  m_Size: {x: .469999999, y: .800000012}
+  m_Size: {x: .469999999, y: .48563689}
 --- !u!114 &11426428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,12 +70,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e804003aaa67ddb40ac78f300f429d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxSpeedThreshold: .75
-  m_approachThreshold: .0500000007
-  m_detectRadius: 1
-  m_attackRadius: .25
-  m_patrolSpeed: 3
-  m_chaseSpeed: 5
+  m_maxSpeedThreshold: .25
+  m_approachThreshold: .00999999978
+  m_detectRadius: 2
+  m_attackRadius: .75
+  m_patrolSpeed: 1.79999995
+  m_chaseSpeed: 2.5
+  m_damage: 5
+  m_attackCooldown: 1.5
   m_patrolPoints: []
   m_baseHP: 100
 --- !u!212 &21206760
