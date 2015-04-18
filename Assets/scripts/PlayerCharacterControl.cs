@@ -39,4 +39,9 @@ public class PlayerCharacterControl : MonoBehaviour
         movement *= baseSpeed;
         GetComponent<Rigidbody2D>().velocity = movement;
 	}
+
+    public void UnloadLevel ()
+    {
+        GameObject.Destroy(gameObject);
+    }
 }

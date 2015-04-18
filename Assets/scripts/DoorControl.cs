@@ -7,6 +7,7 @@ public class DoorControl : MonoBehaviour
     public bool m_enabled = true;
 
     private Collider2D m_triggerRef;
+    private bool m_inside = false;
 
 	// Use this for initialization
 	void Start () 
@@ -30,10 +31,38 @@ public class DoorControl : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {
-        PlayerCharacterControl player = other.GetComponent<PlayerCharacterControl>();
-        if (player != null && m_levelRef != null)
+        if (!m_inside)
         {
-            Debug.LogFormat("Player in!! Now loading {0}", m_levelRef.name);
+            PlayerCharacterControl player = other.GetComponent<PlayerCharacterControl>();
+            if (player != null && m_levelRef != null)
+            {
+                // TODO: Defer this to a proper level controller class
+                Debug.LogFormat("Player in!! Now loading {0}", m_levelRef.name);
+                Level l = GameObject.FindObjectOfType<Level>();
+                if (l != null)
+                {
+                    l.UnloadLevel();
+                }
+
+                player.UnloadLevel();
+
+                Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+                for (int i = 0; i < enemies.Length; ++i)
+                {
+                    enemies[i].UnloadLevel();
+                }
+
+                GameObject newLevel = Instantiate<GameObject>(m_levelRef);
+            }
+            m_inside = true;
         }
     }    
+
+    void OnTriggerExit2D (Collider2D other)
+    {
+        if (m_inside &&  other.GetComponent<PlayerCharacterControl>() != null)
+        {
+            m_inside = false;
+        }
+    }
 }

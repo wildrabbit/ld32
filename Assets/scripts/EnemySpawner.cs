@@ -27,8 +27,9 @@ public class EnemySpawner : MonoBehaviour
             {
                 GameObject enemy = Instantiate<GameObject>(m_enemyPrefabs[idx]);
                 enemy.transform.position = transform.position;
-            }            
+            }
         }
+        gameObject.SetActive(false);
     }
 
 	// Use this for initialization

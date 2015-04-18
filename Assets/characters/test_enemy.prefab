@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 431504}
   - 212: {fileID: 21206760}
   - 61: {fileID: 6166078}
+  - 114: {fileID: 11426428}
   m_Layer: 0
   m_Name: test_enemy
   m_TagString: Untagged
@@ -24,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .736999989, y: .0439999998, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -42,6 +43,17 @@ BoxCollider2D:
   m_Offset: {x: 0, y: .400000006}
   serializedVersion: 2
   m_Size: {x: .469999999, y: .800000012}
+--- !u!114 &11426428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e804003aaa67ddb40ac78f300f429d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21206760
 SpriteRenderer:
   m_ObjectHideFlags: 1

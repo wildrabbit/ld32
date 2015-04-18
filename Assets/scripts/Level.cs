@@ -8,7 +8,13 @@ public class Level : MonoBehaviour
 
     private EnemySpawner[] m_enemySpawners = new EnemySpawner[0];
 	// Use this for initialization
-	void Start () 
+    public void UnloadLevel()
+    {
+        GameObject.Destroy(gameObject);
+        // TODO: Set state and so on
+    }
+
+    void Start () 
     {
         GameObject player = Instantiate<GameObject>(m_playerPrefab);
         m_playerPrefab.transform.position = m_playerStart;
@@ -20,9 +26,10 @@ public class Level : MonoBehaviour
             m_enemySpawners[i].OnLoadLevel();
         }
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
 	
 	}
 }
