@@ -54,6 +54,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e804003aaa67ddb40ac78f300f429d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_maxSpeedThreshold: .75
+  m_approachThreshold: .0500000007
+  m_detectRadius: 1
+  m_attackRadius: .25
+  m_patrolSpeed: 3
+  m_chaseSpeed: 5
+  m_patrolPoints: []
+  m_baseHP: 100
 --- !u!212 &21206760
 SpriteRenderer:
   m_ObjectHideFlags: 1

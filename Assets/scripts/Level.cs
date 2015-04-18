@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Level : MonoBehaviour 
 {
     public GameObject m_playerPrefab = null;
-    public Vector3 m_playerStart = Vector3.zero;
+    private Vector3 m_playerStart = Vector3.zero;
 
     private EnemySpawner[] m_enemySpawners = new EnemySpawner[0];
 	// Use this for initialization
@@ -16,8 +16,13 @@ public class Level : MonoBehaviour
 
     void Start () 
     {
+        Transform playerStart = transform.FindChild("playerStart");
+        if (playerStart != null)
+        {
+            m_playerStart = playerStart.position;
+        }
         GameObject player = Instantiate<GameObject>(m_playerPrefab);
-        m_playerPrefab.transform.position = m_playerStart;
+        player.transform.position = m_playerStart;
         
         m_enemySpawners = GetComponentsInChildren<EnemySpawner>();
         int numSpawners = m_enemySpawners.Length;

@@ -534,7 +534,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerPrefab: {fileID: 128584, guid: 99ff59a7f416f9a46bb61c4366bca46f, type: 2}
-  m_playerStart: {x: 4, y: -4.5999999, z: 0}
 --- !u!114 &11413982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -560,7 +559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyPrefabs:
-  - {fileID: 172838, guid: df93dca6c3c3c7a41b7d59847a5d0a59, type: 2}
+  - {fileID: 11426428, guid: df93dca6c3c3c7a41b7d59847a5d0a59, type: 2}
 --- !u!114 &11437248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -573,7 +572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyPrefabs:
-  - {fileID: 172838, guid: df93dca6c3c3c7a41b7d59847a5d0a59, type: 2}
+  - {fileID: 11426428, guid: df93dca6c3c3c7a41b7d59847a5d0a59, type: 2}
 --- !u!212 &21216024
 SpriteRenderer:
   m_ObjectHideFlags: 1
