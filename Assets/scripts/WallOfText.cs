@@ -9,7 +9,8 @@ public class WallOfText : MonoBehaviour
 
     public float m_particleLifetime = 3.0f;
     public float m_particleSpeed = 0.2f;
-    
+
+    public Color m_colour = Color.black;
     private List<string> m_sentencesRef = null;
 
     private float m_start = -1.0f;
@@ -102,7 +103,7 @@ public class WallOfText : MonoBehaviour
             local.x += -1.5f + Random.Range(0.0f,3.0f);
             local.y += -0.5f + Random.Range(0.0f,0.5f);
 
-            p.Play(text, m_particleLifetime,0.1f, 0.5f, new Color(0.7f,0.7f,0.7f,0.7f), 0.3f, 1.0f, local, dir, speed, OnLifetimeParticleExpired);
+            p.Play(text, m_particleLifetime,0.1f, 0.5f, m_colour, 0.5f, 1.0f, local, dir, speed, OnLifetimeParticleExpired);
         }
     }
 

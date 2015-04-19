@@ -3,24 +3,30 @@
 	<insults>
 		<insult value="¡Furabolos!"/>
 		<insult value="¡Mexeriqueiro!"/>
-		<insult value="¡Pailán!"/>
-		<insult value="¡Vai rañala!"/>
-		<insult value="¡Papaxouvas!"/>	
-		<insult value="¡Desgarracalzas!"/>	
-		<insult value="¡Pelexas coma unha vaca!"/>	
-		<insult value="¡Túzaro!"/>			
+		<insult value="Pailán!"/>
+		<insult value="Paspán da merda!"/>
+		<insult value="Vai rañala!"/>
+		<insult value="Papaxouvas!"/>	
+		<insult value="Desgarracalzas!"/>	
+		<insult value="Pelexas coma unha vaca!"/>	
+		<insult value="Túzaro!"/>			
+		<insult value="Voute esnaquizar,\nverme noxento!"/>
 	</insults>
 	<complaints>
-		<complaint value="¡Mecaghonacona!"/>
-		<complaint value="¡Ay!"/>
-		<complaint value="¡Llevo gafas!"/>
-		<complaint value="¿Esto es todo ?"/>
-		<complaint value="¡Una herida superficial!"/>
+		<complaint value="Mecaghonacona!"/>
+		<complaint value="Ay!"/>
+		<complaint value="Que levo gafas, oh!"/>
+		<complaint value="A miña avoa pega mais forte"/>
+		<complaint value="Vou facerme medieval\n co teu cú"/>
+		<complaint value="Roncalle o carallo"/>
+		<complaint value="Veña home veña!"/>
+		<complaint value="Voute esnaquizar,\nverme noxento!"/>
 	</complaints>
 	<epitaphs>
-		<epitaph value="Ahí v..."/>
-		<epitaph value="¡Morrín!"/>
-		<epitaph value="¡¡Aaarghh!!"/>
+		<epitaph value="Ost..."/>
+		<epitaph value="Morrín!"/>
+		<epitaph value="Aaarghh!!"/>
+		<epitaph value="Nos pegan!!"/>
 	</epitaphs>
 	<walls_of_text>
 		<wot key="analise_libro">

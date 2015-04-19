@@ -84,6 +84,7 @@ MonoBehaviour:
   m_maxParticles: 10
   m_particleLifetime: 3
   m_particleSpeed: .300000012
+  m_colour: {r: .161764681, g: .161764681, b: .161764681, a: 1}
 --- !u!212 &21210910
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -109,7 +110,7 @@ SpriteRenderer:
   m_SortingLayerID: 852226371
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 48557be357a1002489dd4a45be09f7a1, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: .337254912}
+  m_Color: {r: .492647052, g: .492647052, b: .492647052, a: .384313732}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
