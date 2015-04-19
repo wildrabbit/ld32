@@ -237,48 +237,6 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: d5a8d71a6a1c0c641ac9ec405a4979ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!1001 &440688955
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 437746, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 437746, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 437746, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 437746, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 437746, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 437746, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 437746, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 437746, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &639882707
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bc4547ca893da4890c90f8558fbfa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_startingLevel: {fileID: 170752, guid: 8d73d3518087a954fb0ccf51eb92eb31, type: 2}
+  m_startingLevel: {fileID: 115834, guid: d2f7f766ce4e5a646858667f84df7c68, type: 2}
 --- !u!82 &1832970734
 AudioSource:
   m_ObjectHideFlags: 0

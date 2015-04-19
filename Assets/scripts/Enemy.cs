@@ -67,10 +67,13 @@ public class Enemy : MonoBehaviour
     private Transform m_textAttachment = null;
     private Transform m_stunPSAttachment = null;
 
+    private Animator m_animator = null;
+
 
 	// Use this for initialization
 	void Start () 
     {
+        m_animator = GetComponent<Animator>();
         m_hp = m_baseHP;
         if (m_hpBar != null)
         {
@@ -352,6 +355,11 @@ public class Enemy : MonoBehaviour
         m_velocity = (m_targetPosition - transform.position);
         m_velocity.Normalize();
         m_velocity.z = 0;
+
+        if (m_animator != null)
+        {
+            m_animator.speed = (Mathf.Approximately(m_velocity.magnitude, 0.0f)) ? 0.0f : 1.0f;
+        }
 
         if (m_velocity != Vector3.zero && !Mathf.Approximately(m_currentSpeed, 0.0f))
         {

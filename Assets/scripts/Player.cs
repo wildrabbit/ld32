@@ -68,6 +68,8 @@ public class Player : MonoBehaviour
 
     private Transform m_vfxAttachment;
     private Transform m_textAttachment;
+
+    private Animator m_animator;
     
     private int m_hp = 100;
     public int CurrentHP
@@ -135,6 +137,7 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        m_animator = GetComponent<Animator>();
         m_stunIcon = GameObject.Find("hud_1").GetComponent<SpriteRenderer>();
         m_insultIcon = GameObject.Find("hud_0").GetComponent<SpriteRenderer>();
 
@@ -172,6 +175,11 @@ public class Player : MonoBehaviour
         movement.y = yValue;
         movement.Normalize();
         movement *= m_baseSpeed;
+
+        if (m_animator != null)
+        {
+            m_animator.speed = (Mathf.Approximately(movement.magnitude, 0.0f)) ? 0.0f : 1.0f;
+        }
         m_bodyRef.velocity = movement;
 
         // Eloquence refill
