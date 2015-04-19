@@ -11,7 +11,7 @@ PlayerSettings:
   targetIOSGraphics: -1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: org.wildrabbit.ld32
   productName: ld32
   cloudProjectId: 
   defaultCursor: {fileID: 0}

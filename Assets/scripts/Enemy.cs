@@ -61,6 +61,13 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer m_spriteRendererRef = null;
     private ProgressBar m_hpBar = null;
 
+    public GameObject m_textPrefab = null;
+    public GameObject m_stunPrefab = null;
+
+    private Transform m_textAttachment = null;
+    private Transform m_stunPSAttachment = null;
+
+
 	// Use this for initialization
 	void Start () 
     {
@@ -90,6 +97,8 @@ public class Enemy : MonoBehaviour
     {
         m_colliderRef = GetComponent<BoxCollider2D>();
         m_spriteRendererRef = GetComponent<SpriteRenderer>();
+        m_stunPSAttachment = transform.FindChild("stunPSAttachment");
+        m_textAttachment = transform.FindChild("textAttachment");
         
         m_startPosition = startPos;
         m_patrolPoints = patrolPoints;
@@ -164,17 +173,58 @@ public class Enemy : MonoBehaviour
             }
             case EnemyState.kStun:
             {
+                if (m_stunPSAttachment != null && m_stunPrefab != null)
+                {
+                    GameObject go = Instantiate<GameObject>(m_stunPrefab);
+                    go.GetComponent<DelayedDeath>().Play(m_specialInflictedTime);
+                    go.transform.parent = m_stunPSAttachment;
+                    go.transform.localPosition = Vector3.zero;
+                }
                 m_specialInflictedStart = Time.time;
                 m_currentSpeed = 0.0f;
                 break;
             }
             case EnemyState.kHit:
             {
-                Debug.Log("ENEMY::Ouch! I was hit!!");
+                if (m_textAttachment != null && m_textPrefab != null)
+                {
+                    string text = TextManager.Instance.GetRandomComplaint();
+                    if (text != "")
+                    {
+                        GameObject go = Instantiate<GameObject>(m_textPrefab);
+                        go.GetComponent<DelayedDeath>().Play(0.5f);
+                        go.GetComponent<TextMesh>().text = text;
+                        go.transform.parent = m_textAttachment;
+                        go.transform.localPosition = Vector3.zero;
+                    }
+                }
                 break;
             }
             case EnemyState.kDying:
             {
+                if (m_textAttachment != null && m_textPrefab != null)
+                {
+                    if (m_textAttachment.childCount != 0)
+                    {
+                        foreach (Transform t in m_textAttachment.GetComponentsInChildren<Transform>())
+                        {
+                            if (t != this.transform)
+                            {
+                                GameObject.Destroy(t.gameObject);
+                            }
+                        }
+                    }
+                    string text = TextManager.Instance.GetRandomEpitaph();
+                    if (text != "")
+                    {
+                        GameObject go = Instantiate<GameObject>(m_textPrefab);
+                        go.GetComponent<DelayedDeath>().Play(1.0f);
+                        go.GetComponent<TextMesh>().text = text;
+                        go.transform.parent = m_textAttachment;
+                        go.transform.localPosition = Vector3.zero;
+                    }
+                }
+
                 StartCoroutine(Fadeout());
                 break;
             }

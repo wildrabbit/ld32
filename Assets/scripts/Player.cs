@@ -61,6 +61,13 @@ public class Player : MonoBehaviour
     public float m_specialAttackActiveStart = -1.0f;
     public float m_specialAttackCooldownStart = -1.0f;
     //------------------
+
+    public GameObject m_stunAreaVfxPrefab;
+    public GameObject m_textPrefab;
+    public GameObject m_stunTextPrefab;
+
+    public Transform m_vfxAttachment;
+    public Transform m_textAttachment;
     
     private int m_hp = 100;
     public int CurrentHP
@@ -129,6 +136,8 @@ public class Player : MonoBehaviour
         m_bodyRef = GetComponent<Rigidbody2D>();
         m_colliderRef = GetComponent<Collider2D>();
         m_spriteRendererRef = GetComponent<SpriteRenderer>();
+        m_vfxAttachment = transform.FindChild("textAttachment");
+        m_textAttachment = transform.FindChild("vfxAttachment");
 	}
 	
 	// Update is called once per frame
@@ -278,7 +287,24 @@ public class Player : MonoBehaviour
         }
         
         m_specialAttackActiveStart = Time.time;
-        Debug.LogFormat("FWOSSSSH.... Player launches special {0}", specialCfg.type.ToString());
+        switch(specialCfg.type)
+        {
+            case AttackType.kStun:
+            {
+                if (m_vfxAttachment != null)
+                {
+                    if (m_stunAreaVfxPrefab != null)
+                    {
+                        GameObject obj = Instantiate<GameObject>(m_stunAreaVfxPrefab);
+                        obj.GetComponent<ScaleWithAlpha>().Play(specialCfg.castTime);
+                        obj.transform.parent = m_vfxAttachment;
+                        obj.transform.localPosition = Vector3.zero;
+                    }
+                }
+                break;
+            }
+            default: break;
+        }
         m_eloquence -= specialCfg.minCost;
         if (m_eloquence < 0.0f)
         {

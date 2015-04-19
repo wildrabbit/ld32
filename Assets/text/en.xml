@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<text_library code="en">
+	<insults>
+		<insult value="Anthropithecus!"/>
+		<insult value="Bashi-bazouks!"/>
+		<insult value="You fight like a cow!"/>
+		<insult value="Your mother was a hamster!"/>
+	</insults>
+	<complaints>
+		<complaint value="Billions of Bilious \nBlue Blistering Barnacles!"/>
+		<complaint value="Hey!"/>
+		<complaint value="Ouch!!"/>
+		<complaint value="Is this all you've got?"/>
+		<complaint value="It's a flesh wound!"/>	
+		<complaint value="My granny hits harder!"/>	
+		<complaint value="You bastard!"/>			
+		<complaint value="I'm being oppressed!"/>	
+		<complaint value="Violence inherent in the system!"/>	
+	</complaints>
+	<epitaphs>
+		<epitaph value="Ohshi..."/>
+		<epitaph value="Sleep well, sweet prince"/>
+		<epitaph value="Nooooooooo!"/>
+		<epitaph value="So long, and thanks for all the cheese"/>
+		<epitaph value="Aarrrgh!!"/>
+	</epitaphs>	
+	<walls_of_text>
+		<wot key="infinite_jest">
+			<sentence value="we all have our little solipsistic delusions"/>
+			<sentence value="ghastly intuitions of utter singularity "/>
+			<sentence value="that we are the only one in the house "/>
+			<sentence value="who ever fills the ice-cube tray"/>
+			<sentence value="who unloads the clean dishwasher"/>
+			<sentence value="who occasionally pees in the shower "/>
+			<sentence value="whose eyelid twitches on first dates"/>
+			<sentence value="that only we take casualness terribly seriously"/>
+			<sentence value="that only we fashion supplication into courtesy"/>
+			<sentence value="that only we hear the whiny pathos in a dog’s yawn"/>
+			<sentence value="the timeless sigh in the opening"/>
+			<sentence value="of the hermetically-sealed jar"/>
+			<sentence value="the splattered laugh in the frying egg"/>
+			<sentence value="the minor-D lament in the vacuum’s scream"/>
+			<sentence value="that only we feel the panic at sunset"/>
+			<sentence value="the rookie kindergartner feels at his mother’s retreat"/>
+			<sentence value="That only we love the only-we"/>
+			<sentence value="That only we need the only-we"/>
+			<sentence value="Solipsism binds us together, J.D. knows"/>
+			<sentence value="That we feel lonely in a crowd"/>
+			<sentence value="stop not to dwell on what’s brought the crowd into being"/>
+			<sentence value="That we are, always, faces in a crowd"/>
+		</wot>
+	</walls_of_text>
+	<main>
+	</main>
+</text_library>

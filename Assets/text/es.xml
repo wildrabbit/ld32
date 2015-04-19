@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<text_library code="es">
+	<insults>
+		<insult value="¡Mercachifle!"/>
+		<insult value="¡Anacoluto!"/>
+		<insult value="¡Arrastracueros!"/>
+		<insult value="¡Bebecharcos!"/>
+		<insult value="¡Bocachancla!"/>	
+		<insult value="¡Desgarracalzas!"/>	
+		<insult value="¡Peleas como una vaca!"/>	
+		<insult value="¡Gilipuertas!"/>			
+		<insult value="¡Morroestufa!"/>	
+		<insult value="¡Pierdemisas!"/>			
+	</insults>
+	<complaints>
+		<complaint value="¡Tu padre!"/>
+		<complaint value="¡Ay!"/>
+		<complaint value="¡Llevo gafas!"/>
+		<complaint value="¿Esto es todo lo que sabes hacer?"/>
+		<complaint value="¡Es una herida superficial!"/>
+	</complaints>
+	<epitaphs>
+		<epitaph value="Ahí v..."/>
+		<epitaph value="¡Muero!"/>
+		<epitaph value="¡No lloréis!"/>
+		<epitaph value="¡¡Aaarghh!!"/>
+	</epitaphs>
+	<walls_of_text>
+		<wot key="estado_nacion">
+			<sentence value="cinco millones novecientos sesenta y cinco mil cuatrocientos"/>
+			<sentence value="esta cifra, por sí sola, refleja el aspecto más duro y dramático"/>
+			<sentence value="de la situación social y económica por la que atraviesa España"/>
+			<sentence value="me propongo mantener una línea de actuación inalterable"/>
+			<sentence value="Bastante tiempo se ha perdido en España"/>
+			<sentence value="por hacer las cosas a salto de mata"/>
+			<sentence value="No dejaremos de hacer nada de lo que sea necesario"/>
+			<sentence value="Todos debemos compartir cómo hacer viable nuestro aseguramiento social"/>
+			<sentence value="y tranquilizar a los pensionistas"/>
+			<sentence value="tanto actuales como futuros"/>
+			<sentence value="sobre la sostenibilidad del sistema"/>
+		</wot>
+	</walls_of_text>
+	<main>
+		<main_entry key="" value=""/>
+	</main>
+</text_library>
