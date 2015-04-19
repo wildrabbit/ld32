@@ -136,8 +136,8 @@ public class Player : MonoBehaviour
         m_bodyRef = GetComponent<Rigidbody2D>();
         m_colliderRef = GetComponent<Collider2D>();
         m_spriteRendererRef = GetComponent<SpriteRenderer>();
-        m_vfxAttachment = transform.FindChild("textAttachment");
-        m_textAttachment = transform.FindChild("vfxAttachment");
+        m_vfxAttachment = transform.FindChild("vfxAttachment");
+        m_textAttachment = transform.FindChild("textAttachment");
 	}
 	
 	// Update is called once per frame
@@ -300,7 +300,7 @@ public class Player : MonoBehaviour
                         obj.GetComponent<DelayedDeath>().Play(0.3f);
                         obj.GetComponent<ScaleWithAlpha>().Play(0.3f,0.5f, 1.0f, 0.4f, 1.0f);
                         obj.transform.parent = m_vfxAttachment;
-                        obj.transform.localPosition = new Vector3(0.0f, -0.5f, 0.0f);
+                        obj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                     }
 
                     if (m_WOTPrefab != null)
@@ -309,7 +309,7 @@ public class Player : MonoBehaviour
                         obj.GetComponent<DelayedDeath>().Play(1.5f);
                         obj.GetComponent<WallOfText>().Play(1.5f, TextManager.Instance.GetRandomWallOfText());
                         obj.transform.parent = m_vfxAttachment;
-                        obj.transform.localPosition = new Vector3(0.0f, 1.0f, 0.0f);
+                        obj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                     }
                 }
                 break;
