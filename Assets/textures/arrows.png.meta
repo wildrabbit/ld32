@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: 20a2775120e535d47a3fdeec935c7d93
-timeCreated: 1429473284
+guid: 2c926516a2afef145b283e5f70f9e685
+timeCreated: 1429475167
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: en
-    21300002: es
-    21300004: gl
+    21300000: prev
+    21300002: next
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -29,7 +28,7 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
     filterMode: 0
@@ -52,33 +51,23 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: en
+    - name: prev
       rect:
         serializedVersion: 2
-        x: 4
-        y: 7
-        width: 24
-        height: 18
+        x: 2
+        y: 3
+        width: 27
+        height: 26
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: es
+    - name: next
       rect:
         serializedVersion: 2
-        x: 36
-        y: 7
-        width: 24
-        height: 18
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: gl
-      rect:
-        serializedVersion: 2
-        x: 68
-        y: 7
-        width: 24
-        height: 18
+        x: 35
+        y: 3
+        width: 27
+        height: 26
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

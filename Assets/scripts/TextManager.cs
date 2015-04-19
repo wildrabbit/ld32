@@ -37,6 +37,20 @@ public class TextManager : MonoBehaviour
     private Dictionary<string, TextLibrary> m_fullLibrary = new Dictionary<string, TextLibrary>();
     private string m_currentLanguage = "";
 
+    public delegate void OnLanguageChangeDelegate(string code);
+    private OnLanguageChangeDelegate m_onLanguageChange;
+    public OnLanguageChangeDelegate OnLanguageChange
+    {
+        get
+        {
+            return m_onLanguageChange;
+        }
+        set
+        {
+            m_onLanguageChange = value;
+        }
+    }
+
 	// Use this for initializations
 	void Start () 
     {
@@ -56,9 +70,9 @@ public class TextManager : MonoBehaviour
             }
         }
 
-        m_currentLanguage = m_languageCodes.Count > 0 
+        ChangeLanguage(m_languageCodes.Count > 0 
             ? (m_languageCodes.Contains(m_defaultLanguageCode))? m_defaultLanguageCode : m_languageCodes[0] 
-            : "";
+            : "");
 	}
 
     public List<string> GetInsultList()
@@ -94,12 +108,33 @@ public class TextManager : MonoBehaviour
         return m_fullLibrary[m_currentLanguage].GetRandomWallOfText(m_excludeProfanity);
     }
 
+    public void NextLanguage ()
+    {
+        int idx = m_languageCodes.IndexOf(m_currentLanguage);
+        if (idx >= 0)
+        {
+            idx = (idx + 1) % m_languageCodes.Count;
+            ChangeLanguage(m_languageCodes[idx]);                
+        }
+    }
+
+    public void PrevLanguage ()
+    {
+        int idx = m_languageCodes.IndexOf(m_currentLanguage);
+        if (idx >= 0)
+        {
+            idx = idx - 1;
+            if (idx < 0) idx = m_languageCodes.Count - 1;
+            ChangeLanguage(m_languageCodes[idx]);
+        }
+    }
+
     public void ChangeLanguage (string newCode)
     {
         if (m_languageCodes.Contains(newCode))
         {
             m_currentLanguage = newCode;
-            //NOTIFY
+            m_onLanguageChange(newCode);
         }
     }
 

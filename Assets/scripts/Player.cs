@@ -266,22 +266,23 @@ public class Player : MonoBehaviour
 
     void NextSpecial ()
     {
-        m_selectedSpecialIdx = (m_selectedSpecialIdx + 1) % (m_specialAttacks.Length);
+        //m_selectedSpecialIdx = (m_selectedSpecialIdx + 1) % (m_specialAttacks.Length);
         
-        Debug.LogFormat("NEXT: {0}", m_specialAttacks[m_selectedSpecialIdx].type.ToString());
-        // dispatch event to update HUD
+        //Debug.LogFormat("NEXT: {0}", m_specialAttacks[m_selectedSpecialIdx].type.ToString());
+        //// dispatch event to update HUD
+        TextManager.Instance.NextLanguage();
     }
 
     void PrevSpecial ()
     {
-        m_selectedSpecialIdx--;
-        if (m_selectedSpecialIdx < 0)
-        {
-            m_selectedSpecialIdx = m_specialAttacks.Length - 1;
-        }
-        Debug.LogFormat("PREV: {0}", m_specialAttacks[m_selectedSpecialIdx].type.ToString());
+        //m_selectedSpecialIdx--;
+        //if (m_selectedSpecialIdx < 0)
+        //{
+        //    m_selectedSpecialIdx = m_specialAttacks.Length - 1;
+        //}
+        //Debug.LogFormat("PREV: {0}", m_specialAttacks[m_selectedSpecialIdx].type.ToString());
         // dispatch event to update HUD
-
+        TextManager.Instance.PrevLanguage();
     }
 
     void AttemptSpecialAttack ()
