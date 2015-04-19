@@ -298,7 +298,7 @@ public class Player : MonoBehaviour
                         GameObject obj = Instantiate<GameObject>(m_stunAreaVfxPrefab);
                         obj.GetComponent<ScaleWithAlpha>().Play(specialCfg.castTime);
                         obj.transform.parent = m_vfxAttachment;
-                        obj.transform.localPosition = Vector3.zero;
+                        obj.transform.localPosition = new Vector3(0.0f, -0.5f, 0.0f);
                     }
                 }
                 break;

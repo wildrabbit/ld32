@@ -9,12 +9,17 @@ public class ScaleWithAlpha : MonoBehaviour
 
     public void Play(float duration)
     {
+        transform.localScale = Vector3.zero;
+        Color col = m_renderer.color;
+        col.a = 0.0f;
+        m_renderer.color = col;
+
         m_total = duration;
         m_start = Time.time;
     }
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
     {
         m_renderer = GetComponent<SpriteRenderer>();
 	}
@@ -24,7 +29,7 @@ public class ScaleWithAlpha : MonoBehaviour
     {
         float delta = Time.time - m_start;
         float elapsedRatio = delta/m_total;
-        float value = Mathf.Lerp(0.0f, 1.0f, elapsedRatio);
+        float value = Mathf.Lerp(0.0f, 1.0f, elapsedRatio) * 0.8f;
 
         Color col = m_renderer.color;
         col.a = value;
