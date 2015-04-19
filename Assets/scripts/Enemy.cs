@@ -192,7 +192,7 @@ public class Enemy : MonoBehaviour
                     if (text != "")
                     {
                         GameObject go = Instantiate<GameObject>(m_textPrefab);
-                        go.GetComponent<DelayedDeath>().Play(0.5f);
+                        go.GetComponent<DelayedDeath>().Play(1.0f);
                         go.GetComponent<TextMesh>().text = text;
                         go.transform.parent = m_textAttachment;
                         go.transform.localPosition = Vector3.zero;

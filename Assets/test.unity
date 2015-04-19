@@ -168,11 +168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff7ba5d1e82fd43a4dc69707805b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_defaultLanguageCode: es
   m_excludeProfanity: 0
   m_languageFiles:
   - {fileID: 4900000, guid: 8f7c5bd2a39981f48b0015f8a902e896, type: 3}
   - {fileID: 4900000, guid: 0cce7d5ce797e9e40b2f903c6b6c0874, type: 3}
-  m_languageCodes: []
 --- !u!1 &902911083
 GameObject:
   m_ObjectHideFlags: 0

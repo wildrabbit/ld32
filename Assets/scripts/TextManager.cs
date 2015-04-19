@@ -6,6 +6,7 @@ using System.Xml;
 
 public class TextManager : MonoBehaviour 
 {
+    public string m_defaultLanguageCode = "en";
     private static TextManager m_instance = null;
     public static TextManager Instance
     {
@@ -32,7 +33,7 @@ public class TextManager : MonoBehaviour
 
     public bool m_excludeProfanity = false;
     public List<TextAsset> m_languageFiles = new List<TextAsset>();
-    public List<string> m_languageCodes = new List<string>();
+    private List<string> m_languageCodes = new List<string>();
     private Dictionary<string, TextLibrary> m_fullLibrary = new Dictionary<string, TextLibrary>();
     private string m_currentLanguage = "";
 
@@ -55,7 +56,9 @@ public class TextManager : MonoBehaviour
             }
         }
 
-        m_currentLanguage = m_languageCodes.Count > 0 ? m_languageCodes[0] : "";
+        m_currentLanguage = m_languageCodes.Count > 0 
+            ? (m_languageCodes.Contains(m_defaultLanguageCode))? m_defaultLanguageCode : m_languageCodes[0] 
+            : "";
 	}
 
     public List<string> GetInsultList()
