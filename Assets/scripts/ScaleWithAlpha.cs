@@ -7,15 +7,48 @@ public class ScaleWithAlpha : MonoBehaviour
     private float m_total = -1.0f;
     private SpriteRenderer m_renderer = null;
 
-    public void Play(float duration)
+    private float m_startScale = 0.0f;
+    private float m_endScale = 1.0f;
+
+    private float m_startAlpha = 0.0f;
+    private float m_endAlpha = 1.0f;
+    
+    public delegate void OnTimeoutDelegate(GameObject go);
+    private OnTimeoutDelegate m_onTimeout;
+    public OnTimeoutDelegate OnTimeout
     {
-        transform.localScale = Vector3.zero;
+        get
+        {
+            return m_onTimeout;
+        }
+    }
+
+    public void Play(float duration, float startScale, float endScale, float startAlpha, float endAlpha, OnTimeoutDelegate timeout = null)
+    {
+        m_startScale = startScale;
+        m_endScale = endScale;
+
+        m_startAlpha = startAlpha;
+        m_endAlpha = endAlpha;
+        
+        Vector3 scale = Vector3.zero;
+        scale.x = scale.y = m_startScale;
+        scale.z = 1.0f;
+        transform.localScale = scale;
+        
         Color col = m_renderer.color;
-        col.a = 0.0f;
+        col.a = m_startAlpha;
         m_renderer.color = col;
 
         m_total = duration;
         m_start = Time.time;
+
+        if (timeout != null)
+        {
+            m_onTimeout -= timeout;
+            m_onTimeout += timeout;
+        }
+        
     }
 
 	// Use this for initialization
@@ -27,20 +60,29 @@ public class ScaleWithAlpha : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        float delta = Time.time - m_start;
-        float elapsedRatio = delta/m_total;
-        float value = Mathf.Lerp(0.0f, 1.0f, elapsedRatio) * 0.8f;
-
-        Color col = m_renderer.color;
-        col.a = value;
-        m_renderer.color = col;
-
-        transform.localScale = new Vector3(value, value, 1.0f);
-
-        if (delta >= m_total)
+        if (m_start >= 0)
         {
-            transform.parent = null;
-            GameObject.Destroy(gameObject);
+            float delta = Time.time - m_start;
+            if (delta <= m_total)
+            {
+                float elapsedRatio = delta / m_total;
+                float value = Mathf.Lerp(0.0f, 1.0f, elapsedRatio);
+
+                Color col = m_renderer.color;
+                col.a = m_startAlpha + value * (m_endAlpha - m_startAlpha);
+                m_renderer.color = col;
+
+                float scaleValue = m_startScale + value * (m_endScale - m_startScale); // YAY FOR A LERP ON A LERP DERP... FIX LATER (Although we can handle negatives this way)
+                transform.localScale = new Vector3(scaleValue, scaleValue, 1.0f);
+            }
+            else
+            {
+                if (m_onTimeout != null)
+                {
+                    m_onTimeout(this.gameObject);
+                }
+                m_start = -1.0f;
+            }
         }
 	}
 }

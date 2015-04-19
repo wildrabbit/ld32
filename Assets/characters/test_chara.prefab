@@ -163,15 +163,13 @@ MonoBehaviour:
   m_baseHp: 100
   m_baseEloquence: 100
   m_baseSpeed: 3
-  m_refillRate: 2
+  m_refillRate: 5
   m_defaultAttackStart: -1
   m_specialAttackActiveStart: -1
   m_specialAttackCooldownStart: -1
   m_stunAreaVfxPrefab: {fileID: 194526, guid: a258c49b3b1615044aed785f5a7ceb3e, type: 2}
   m_textPrefab: {fileID: 178578, guid: 0d6f078177dc32641bef29d731664f6a, type: 2}
-  m_stunTextPrefab: {fileID: 0}
-  m_vfxAttachment: {fileID: 0}
-  m_textAttachment: {fileID: 0}
+  m_WOTPrefab: {fileID: 126488, guid: d81dee09f351fe14d8bfdad0152ffe19, type: 2}
 --- !u!212 &21294972
 SpriteRenderer:
   m_ObjectHideFlags: 1

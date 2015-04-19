@@ -10,8 +10,9 @@ GameObject:
   - 4: {fileID: 493186}
   - 23: {fileID: 2303288}
   - 102: {fileID: 10265002}
+  - 114: {fileID: 11402200}
   m_Layer: 0
-  m_Name: TextParticle
+  m_Name: WOTParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 178578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .25, y: .25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,7 +74,18 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: c674c68cd2038814a8454ddf4031fd7f, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 2625140856
+--- !u!114 &11402200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 840060b5219967144a2feda5d95e1bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

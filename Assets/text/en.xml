@@ -15,13 +15,13 @@
 		<complaint value="My granny hits harder!"/>	
 		<complaint value="You bastard!"/>			
 		<complaint value="I'm being oppressed!"/>	
-		<complaint value="Violence inherent in the system!"/>	
+		<complaint value="Violence inherent\nin the system!"/>	
 	</complaints>
 	<epitaphs>
 		<epitaph value="Ohshi..."/>
 		<epitaph value="Sleep well, sweet prince"/>
 		<epitaph value="Nooooooooo!"/>
-		<epitaph value="So long, and thanks for all the cheese"/>
+		<epitaph value="So long, and thanks\nfor all the cheese"/>
 		<epitaph value="Aarrrgh!!"/>
 	</epitaphs>	
 	<walls_of_text>

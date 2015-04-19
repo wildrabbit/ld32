@@ -64,10 +64,10 @@ public class Player : MonoBehaviour
 
     public GameObject m_stunAreaVfxPrefab;
     public GameObject m_textPrefab;
-    public GameObject m_stunTextPrefab;
+    public GameObject m_WOTPrefab;
 
-    public Transform m_vfxAttachment;
-    public Transform m_textAttachment;
+    private Transform m_vfxAttachment;
+    private Transform m_textAttachment;
     
     private int m_hp = 100;
     public int CurrentHP
@@ -293,12 +293,23 @@ public class Player : MonoBehaviour
             {
                 if (m_vfxAttachment != null)
                 {
+
                     if (m_stunAreaVfxPrefab != null)
                     {
                         GameObject obj = Instantiate<GameObject>(m_stunAreaVfxPrefab);
-                        obj.GetComponent<ScaleWithAlpha>().Play(specialCfg.castTime);
+                        obj.GetComponent<DelayedDeath>().Play(0.3f);
+                        obj.GetComponent<ScaleWithAlpha>().Play(0.3f,0.5f, 1.0f, 0.4f, 1.0f);
                         obj.transform.parent = m_vfxAttachment;
                         obj.transform.localPosition = new Vector3(0.0f, -0.5f, 0.0f);
+                    }
+
+                    if (m_WOTPrefab != null)
+                    {
+                        GameObject obj = Instantiate<GameObject>(m_WOTPrefab);
+                        obj.GetComponent<DelayedDeath>().Play(1.5f);
+                        obj.GetComponent<WallOfText>().Play(1.5f, TextManager.Instance.GetRandomWallOfText());
+                        obj.transform.parent = m_vfxAttachment;
+                        obj.transform.localPosition = new Vector3(0.0f, 1.0f, 0.0f);
                     }
                 }
                 break;
@@ -352,7 +363,7 @@ public class Player : MonoBehaviour
                 if (text != "")
                 {
                     GameObject go = Instantiate<GameObject>(m_textPrefab);
-                    go.GetComponent<DelayedDeath>().Play(1.5f);
+                    go.GetComponent<DelayedDeath>().Play(1.0f);
                     go.GetComponent<TextMesh>().text = text;
                     go.transform.parent = m_textAttachment;
                     go.transform.localPosition = Vector3.zero;
@@ -420,7 +431,7 @@ public class Player : MonoBehaviour
             if (text != "")
             {
                 GameObject go = Instantiate<GameObject>(m_textPrefab);
-                go.GetComponent<DelayedDeath>().Play(1.5f);
+                go.GetComponent<DelayedDeath>().Play(1.0f);
                 go.GetComponent<TextMesh>().text = text;
                 go.transform.parent = m_textAttachment;
                 go.transform.localPosition = Vector3.zero;

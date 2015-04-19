@@ -151,7 +151,7 @@ public class TextLibrary
         int numFiltered = filtered.Count;
         if (filtered.Count > 0)
         {
-            return filtered[Random.Range(0, filtered.Count)];
+            return ReplaceLineBreaks(filtered[Random.Range(0, filtered.Count)]);
         }
         return "";
     }
@@ -175,7 +175,7 @@ public class TextLibrary
         int numFiltered = filtered.Count;
         if (filtered.Count > 0)
         {
-            return filtered[Random.Range(0, filtered.Count)];
+            return ReplaceLineBreaks(filtered[Random.Range(0, filtered.Count)]);
         }
         return "";
     }
@@ -200,7 +200,7 @@ public class TextLibrary
         int numFiltered = filtered.Count;
         if (filtered.Count > 0)
         {
-            return filtered[Random.Range(0, filtered.Count)];
+            return ReplaceLineBreaks(filtered[Random.Range(0, filtered.Count)]);
         }
         return "";
     }
@@ -231,8 +231,13 @@ public class TextLibrary
     {
         if (m_mainTexts.ContainsKey(key))
         {
-            return string.Format(m_mainTexts[key], replacements);
+            return ReplaceLineBreaks(string.Format(m_mainTexts[key], replacements));
         }
         else return key;
+    }
+
+    public string ReplaceLineBreaks (string inputStr)
+    {
+        return inputStr.Replace("\\n", "\n");
     }
 }
