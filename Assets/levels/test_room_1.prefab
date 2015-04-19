@@ -521,8 +521,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150834}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.800000012, y: -5.17000008, z: -1}
+  m_LocalRotation: {x: .0430926606, y: -.0114986459, z: .000419189368, w: .999004841}
+  m_LocalPosition: {x: -.74000001, y: -1.62, z: -3.3599999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 462272}
@@ -923,7 +923,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 2
-  m_Color: {r: .178269893, g: .255546212, b: .360784322, a: 1}
+  m_Color: {r: .274329573, g: .316176474, b: .276349783, a: 1}
   m_Intensity: 3.0999999
   m_Range: 19.9599991
   m_SpotAngle: 30
@@ -954,9 +954,9 @@ Light:
   m_GameObject: {fileID: 150834}
   m_Enabled: 1
   serializedVersion: 6
-  m_Type: 2
-  m_Color: {r: .127378881, g: .255324513, b: .558823526, a: .58431375}
-  m_Intensity: 3.20000005
+  m_Type: 1
+  m_Color: {r: .945451021, g: .948529422, b: .725346029, a: .58431375}
+  m_Intensity: .5
   m_Range: 6.88000011
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1098,7 +1098,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1616190651
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1a75b50c68ee93d42beb4e494a20dee3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 911d9ed4e1edf354e942c0ea10ff2c7a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
