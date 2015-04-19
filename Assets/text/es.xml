@@ -10,14 +10,15 @@
 		<insult value="¡Peleas como una vaca!"/>	
 		<insult value="¡Gilipuertas!"/>			
 		<insult value="¡Morroestufa!"/>	
-		<insult value="¡Pierdemisas!"/>			
+		<insult value="¡Pierdemisas!"/>		
+		<insult value="¡Mangarrán!"/>
 	</insults>
 	<complaints>
 		<complaint value="¡Tu padre!"/>
 		<complaint value="¡Ay!"/>
 		<complaint value="¡Llevo gafas!"/>
-		<complaint value="¿Esto es todo lo que sabes hacer?"/>
-		<complaint value="¡Es una herida superficial!"/>
+		<complaint value="¿Esto es todo ?"/>
+		<complaint value="¡Una herida superficial!"/>
 	</complaints>
 	<epitaphs>
 		<epitaph value="Ahí v..."/>

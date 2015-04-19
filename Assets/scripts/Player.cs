@@ -335,7 +335,30 @@ public class Player : MonoBehaviour
         Enemy e = GameManager.Instance.GetClosestEnemy(transform.position);
         if (e != null && Vector3.Distance(transform.position, e.transform.position) <= m_defaultAttack.minRadius)
         {
-            Debug.Log("Insulting!!!");
+            if (m_textAttachment != null && m_textPrefab != null)
+            {
+                if (m_textAttachment.childCount != 0)
+                {
+                    foreach (Transform t in m_textAttachment.GetComponentsInChildren<Transform>())
+                    {
+                        if (t != m_textAttachment)
+                        {
+                            GameObject.Destroy(t.gameObject);
+                        }
+                    }
+                }
+
+                string text = TextManager.Instance.GetRandomInsult();
+                if (text != "")
+                {
+                    GameObject go = Instantiate<GameObject>(m_textPrefab);
+                    go.GetComponent<DelayedDeath>().Play(1.5f);
+                    go.GetComponent<TextMesh>().text = text;
+                    go.transform.parent = m_textAttachment;
+                    go.transform.localPosition = Vector3.zero;
+                }
+            }
+
             e.OnPlayerUsedDefaultAttack(m_defaultAttack.minDamage);
             m_defaultAttackStart = Time.time;
             m_eloquence -= m_defaultAttack.minCost;
@@ -373,13 +396,41 @@ public class Player : MonoBehaviour
     {
         //m_hp -= enemyRef.damage;
         m_hp -= 5;
+        bool died = false;
         if (m_hp <= 0)
         {
             m_hp = 0;
-            StartCoroutine(Fadeout());
+            died = true;
         }
 
+        if (m_textAttachment != null && m_textPrefab != null)
+        {
+            if (m_textAttachment.childCount != 0)
+            {
+                foreach (Transform t in m_textAttachment.GetComponentsInChildren<Transform>())
+                {
+                    if (t != m_textAttachment)
+                    {
+                        GameObject.Destroy(t.gameObject);
+                    }
+                }
+            }
+
+            string text = died ? TextManager.Instance.GetRandomEpitaph() : TextManager.Instance.GetRandomComplaint();
+            if (text != "")
+            {
+                GameObject go = Instantiate<GameObject>(m_textPrefab);
+                go.GetComponent<DelayedDeath>().Play(1.5f);
+                go.GetComponent<TextMesh>().text = text;
+                go.transform.parent = m_textAttachment;
+                go.transform.localPosition = Vector3.zero;
+            }
+        }
         m_hpBar.SetValue(m_hp / (float)m_baseHp);
+        if (died)
+        {
+            StartCoroutine(Fadeout());
+        }
     }
 
     public IEnumerator Fadeout()

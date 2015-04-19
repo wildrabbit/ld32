@@ -126,7 +126,13 @@ public class GameManager : MonoBehaviour
 
     public void OnEnemyDied (Enemy e)
     {
-        if (!m_deadEnemies.Contains(e.name))
+        if (e == null)
+        {
+            Debug.Log("GM::OnEnemyDied - null e??");
+            return;
+        }
+
+        if (m_deadEnemies != null && !m_deadEnemies.Contains(e.name))
         {
             m_deadEnemies.Add(e.name);
         }

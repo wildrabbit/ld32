@@ -188,11 +188,22 @@ public class Enemy : MonoBehaviour
             {
                 if (m_textAttachment != null && m_textPrefab != null)
                 {
+                    if (m_textAttachment.childCount != 0)
+                    {
+                        foreach (Transform t in m_textAttachment.GetComponentsInChildren<Transform>())
+                        {
+                            if (t != m_textAttachment)
+                            {
+                                GameObject.Destroy(t.gameObject);
+                            }
+                        }
+                    }
+
                     string text = TextManager.Instance.GetRandomComplaint();
                     if (text != "")
                     {
                         GameObject go = Instantiate<GameObject>(m_textPrefab);
-                        go.GetComponent<DelayedDeath>().Play(1.0f);
+                        go.GetComponent<DelayedDeath>().Play(1.5f);
                         go.GetComponent<TextMesh>().text = text;
                         go.transform.parent = m_textAttachment;
                         go.transform.localPosition = Vector3.zero;
@@ -293,6 +304,10 @@ public class Enemy : MonoBehaviour
             {
                 if (m_specialInflictedStart >= 0.0f && Time.time - m_specialInflictedStart >= m_specialInflictedTime)
                 {
+                    if (m_previousState == EnemyState.kNone)
+                    {
+                        Debug.Log("STUN WTF! NONE ATTEMPTED");
+                    }
                     next = m_previousState;
                     m_specialInflictedTime = -1.0f;
                     m_specialInflictedStart = -1.0f;
@@ -305,6 +320,10 @@ public class Enemy : MonoBehaviour
             case EnemyState.kHit:
             {
                 next = m_previousState;
+                if (m_previousState == EnemyState.kNone)
+                {
+                    Debug.Log("HIT WTF! NONE ATTEMPTED");
+                }
                 m_previousState = EnemyState.kNone;
                 break;
             }
