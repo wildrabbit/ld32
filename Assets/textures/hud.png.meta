@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 9f3fc63cd558b484abfaf5c7e765d610
-timeCreated: 1429462989
+guid: d5a8d71a6a1c0c641ac9ec405a4979ae
+timeCreated: 1429471456
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: enemy0_front_0
-    21300002: enemy0_front_1
-    21300004: enemy0_front_2
-    21300006: enemy0_front_3
+    21300000: hud_0
+    21300002: hud_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -44,7 +42,7 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
+  alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 64
@@ -53,44 +51,24 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: enemy0_front_0
+    - name: hud_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 5
-        width: 46
-        height: 59
-      alignment: 7
+        x: 1
+        y: 0
+        width: 59
+        height: 61
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy0_front_1
+    - name: hud_1
       rect:
         serializedVersion: 2
-        x: 73
-        y: 5
-        width: 46
-        height: 59
-      alignment: 7
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy0_front_2
-      rect:
-        serializedVersion: 2
-        x: 134
+        x: 65
         y: 1
-        width: 49
-        height: 63
-      alignment: 7
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy0_front_3
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 5
-        width: 46
-        height: 59
-      alignment: 7
+        width: 62
+        height: 62
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 

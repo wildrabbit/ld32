@@ -311,7 +311,6 @@ public class Enemy : MonoBehaviour
                     next = m_previousState;
                     m_specialInflictedTime = -1.0f;
                     m_specialInflictedStart = -1.0f;
-                    Debug.Log("ENEMY stops being stunned!");
                     m_specialInflictedType = AttackType.kNone;
                     m_previousState = EnemyState.kNone;
                 }
@@ -431,7 +430,6 @@ public class Enemy : MonoBehaviour
 
         if (m_startAttack < 0)
         {
-            Debug.Log("Attacking player!");
             m_playerRef.OnEnemyAttacked(this);
             m_startAttack = Time.time;
         }
@@ -521,7 +519,6 @@ public class Enemy : MonoBehaviour
         if (m_playerRef != null)
         {
             m_hp -= damage;
-            Debug.Log ("Ouch!");
             if (m_hp <= 0)
             {
                 m_hp = 0;
@@ -529,7 +526,11 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                m_previousState = m_currentState;
+                Debug.LogFormat("Saving prev. after hit {0}", m_currentState);
+                if (m_previousState == EnemyState.kNone)
+                {
+                    m_previousState = m_currentState;
+                }
                 m_frozenCooldown = true;
                 ChangeState(EnemyState.kHit);
             }
@@ -555,9 +556,11 @@ public class Enemy : MonoBehaviour
                     else
                     {
                         m_specialInflictedType = attackType;
-                        m_previousState = m_currentState;
+                        if (m_previousState == EnemyState.kNone)
+                        {
+                            m_previousState = m_currentState;
+                        }
                         m_specialInflictedTime = effectiveTime;
-                        Debug.Log("ENEMY:: became stunned!");
                         ChangeState(EnemyState.kStun);
                     }
                     break;

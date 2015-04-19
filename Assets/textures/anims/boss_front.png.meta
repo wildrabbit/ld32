@@ -1,13 +1,17 @@
 fileFormatVersion: 2
-guid: 9f3fc63cd558b484abfaf5c7e765d610
-timeCreated: 1429462989
+guid: 9cbfced50f2816643b4b6be2ae1e4be9
+timeCreated: 1429468897
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: enemy0_front_0
-    21300002: enemy0_front_1
-    21300004: enemy0_front_2
-    21300006: enemy0_front_3
+    21300000: bos_front_0
+    21300002: bos_front_1
+    21300004: bos_front_2
+    21300006: bos_front_3
+    21300008: boss_front_0
+    21300010: boss_front_1
+    21300012: boss_front_2
+    21300014: boss_front_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -44,7 +48,7 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
+  alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 64
@@ -53,44 +57,44 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: enemy0_front_0
+    - name: boss_front_0
       rect:
         serializedVersion: 2
         x: 10
         y: 5
-        width: 46
-        height: 59
-      alignment: 7
+        width: 47
+        height: 58
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy0_front_1
+    - name: boss_front_1
       rect:
         serializedVersion: 2
-        x: 73
+        x: 74
         y: 5
-        width: 46
-        height: 59
-      alignment: 7
+        width: 47
+        height: 58
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy0_front_2
+    - name: boss_front_2
       rect:
         serializedVersion: 2
-        x: 134
+        x: 138
         y: 1
-        width: 49
-        height: 63
-      alignment: 7
+        width: 45
+        height: 62
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy0_front_3
+    - name: boss_front_3
       rect:
         serializedVersion: 2
-        x: 201
+        x: 202
         y: 5
-        width: 46
-        height: 59
-      alignment: 7
+        width: 47
+        height: 58
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 

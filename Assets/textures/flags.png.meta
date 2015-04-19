@@ -1,13 +1,12 @@
 fileFormatVersion: 2
-guid: 9f3fc63cd558b484abfaf5c7e765d610
-timeCreated: 1429462989
+guid: 20a2775120e535d47a3fdeec935c7d93
+timeCreated: 1429472188
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: enemy0_front_0
-    21300002: enemy0_front_1
-    21300004: enemy0_front_2
-    21300006: enemy0_front_3
+    21300000: flags_0
+    21300002: flags_1
+    21300004: flags_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -44,7 +43,7 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
+  alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 64
@@ -53,44 +52,34 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: enemy0_front_0
+    - name: flags_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 5
-        width: 46
-        height: 59
-      alignment: 7
+        x: 4
+        y: 7
+        width: 24
+        height: 18
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy0_front_1
+    - name: flags_1
       rect:
         serializedVersion: 2
-        x: 73
-        y: 5
-        width: 46
-        height: 59
-      alignment: 7
+        x: 36
+        y: 7
+        width: 24
+        height: 18
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy0_front_2
+    - name: flags_2
       rect:
         serializedVersion: 2
-        x: 134
-        y: 1
-        width: 49
-        height: 63
-      alignment: 7
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy0_front_3
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 5
-        width: 46
-        height: 59
-      alignment: 7
+        x: 68
+        y: 7
+        width: 24
+        height: 18
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 

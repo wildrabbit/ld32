@@ -95,6 +95,8 @@ public class Player : MonoBehaviour
     public delegate void OnDead();
     public OnDead m_OnDead;
 
+    public SpriteRenderer m_insultIcon = null;
+    public SpriteRenderer m_stunIcon = null;
     //-----------------------------
 
     //-----------------------------
@@ -133,6 +135,9 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        m_stunIcon = GameObject.Find("hud_1").GetComponent<SpriteRenderer>();
+        m_insultIcon = GameObject.Find("hud_0").GetComponent<SpriteRenderer>();
+
         m_bodyRef = GetComponent<Rigidbody2D>();
         m_colliderRef = GetComponent<Collider2D>();
         m_spriteRendererRef = GetComponent<SpriteRenderer>();
@@ -143,6 +148,23 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
+        AttackConfig specialCfg = m_specialAttacks[m_selectedSpecialIdx];
+        bool specialAvailable = (m_eloquence >= specialCfg.minCost && m_specialAttackActiveStart < 0 && m_specialAttackCooldownStart < 0);
+        if (m_stunIcon != null)
+        {
+            Color c = m_stunIcon.color;
+            c.a= specialAvailable ? 1.0f : 0.5f;
+            m_stunIcon.color = c;
+        }
+
+        bool defaultAvailable = (m_eloquence >= m_defaultAttack.minCost && m_defaultAttackStart < 0);
+        if (m_insultIcon != null)
+        {
+            Color c = m_insultIcon.color;
+            c.a = defaultAvailable ? 1.0f : 0.5f;
+            m_insultIcon.color = c;
+        }
+
         float xValue = Input.GetAxis("Horizontal");
         float yValue = Input.GetAxis("Vertical");
         Vector3 movement = Vector3.zero;
@@ -178,7 +200,6 @@ public class Player : MonoBehaviour
             if ( Time.time - m_specialAttackActiveStart >= specialConfig.castTime)
             {
                 m_specialAttackActiveStart = -1.0f;
-                Debug.LogFormat("zzzip....Finished applying {0}. Cooldown: {1}s", specialConfig.type.ToString(), specialConfig.cooldown);
                 m_specialAttackCooldownStart = Time.time;
             }
             else
@@ -197,7 +218,6 @@ public class Player : MonoBehaviour
         {
             if (Time.time - m_specialAttackCooldownStart >= specialConfig.cooldown)
             {
-                Debug.Log("Finished special attack cooldown");
                 m_specialAttackCooldownStart = -1.0f;
             }
             else
