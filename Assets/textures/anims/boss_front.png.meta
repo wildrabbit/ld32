@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 9cbfced50f2816643b4b6be2ae1e4be9
-timeCreated: 1429468897
+timeCreated: 1429483323
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -64,7 +64,7 @@ TextureImporter:
         y: 5
         width: 47
         height: 58
-      alignment: 0
+      alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: boss_front_1
@@ -74,7 +74,7 @@ TextureImporter:
         y: 5
         width: 47
         height: 58
-      alignment: 0
+      alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: boss_front_2
@@ -84,7 +84,7 @@ TextureImporter:
         y: 1
         width: 45
         height: 62
-      alignment: 0
+      alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: boss_front_3
@@ -94,7 +94,7 @@ TextureImporter:
         y: 5
         width: 47
         height: 58
-      alignment: 0
+      alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 

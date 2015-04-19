@@ -72,6 +72,10 @@ public class Enemy : MonoBehaviour
 	void Start () 
     {
         m_hp = m_baseHP;
+        if (m_hpBar != null)
+        {
+            m_hpBar.SetValue(m_hp / (float)m_baseHP);
+        }
         //m_charmed = false;
         m_playerRef = GameManager.Instance.GetPlayer();
         m_playerRef.m_OnDead += OnPlayerDied;
@@ -103,6 +107,12 @@ public class Enemy : MonoBehaviour
         m_startPosition = startPos;
         m_patrolPoints = patrolPoints;
         m_numPatrolPoints = m_patrolPoints.Length;
+        m_startPosition.z = 0.0f;
+        for (int i = 0; i < m_numPatrolPoints; ++i)
+        {
+            Vector3 p = m_patrolPoints[i];
+            p.z = 0.0f;
+        }
         m_currentIdx = 0;
         transform.position = m_startPosition;
 
@@ -341,6 +351,7 @@ public class Enemy : MonoBehaviour
         // UPDATE CALCULATIONS
         m_velocity = (m_targetPosition - transform.position);
         m_velocity.Normalize();
+        m_velocity.z = 0;
 
         if (m_velocity != Vector3.zero && !Mathf.Approximately(m_currentSpeed, 0.0f))
         {

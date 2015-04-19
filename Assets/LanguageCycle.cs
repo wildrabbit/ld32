@@ -11,12 +11,15 @@ public class LanguageCycle : MonoBehaviour
 {
     public List<LanguageConfig> m_languageIcons = new List<LanguageConfig>();
     private SpriteRenderer m_renderer = null;
-    void Start ()
+
+    void Awake ()
     {
+        TextManager.Instance.OnLanguageChange += OnLanguageChanged;
         m_renderer = GetComponentInChildren<SpriteRenderer>();
         m_renderer.enabled = false;
-
-        TextManager.Instance.OnLanguageChange += OnLanguageChanged;
+    }
+    void Start ()
+    {
     }
 
 	public void OnLanguageChanged (string code)

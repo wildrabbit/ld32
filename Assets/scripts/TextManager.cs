@@ -134,7 +134,10 @@ public class TextManager : MonoBehaviour
         if (m_languageCodes.Contains(newCode))
         {
             m_currentLanguage = newCode;
-            m_onLanguageChange(newCode);
+            if (m_onLanguageChange != null && newCode != null)
+            {
+                m_onLanguageChange(newCode);
+            }
         }
     }
 
