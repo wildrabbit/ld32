@@ -6,6 +6,8 @@ public class Level : MonoBehaviour
     public GameObject m_playerPrefab = null;
     private Vector3 m_playerStart = Vector3.zero;
 
+    public bool m_last = false;
+
     private EnemySpawner[] m_enemySpawners = new EnemySpawner[0];
 	// Use this for initialization
     public void UnloadLevel()

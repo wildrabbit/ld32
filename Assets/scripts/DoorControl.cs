@@ -36,6 +36,10 @@ public class DoorControl : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null && m_levelRef != null)
             {
+                if (m_levelRef.GetComponent<Level>().m_last)
+                {
+                    GameManager.Instance.OnLastLevel();
+                }
                 // TODO: Defer this to a proper level controller class
                 GameManager.Instance.ChangeLevel(m_levelRef.GetComponent<Level>());
             }

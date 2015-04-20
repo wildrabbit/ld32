@@ -1224,6 +1224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerPrefab: {fileID: 128584, guid: 99ff59a7f416f9a46bb61c4366bca46f, type: 2}
+  m_last: 1
 --- !u!114 &11493706
 MonoBehaviour:
   m_ObjectHideFlags: 1

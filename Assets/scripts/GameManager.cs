@@ -16,6 +16,8 @@ public class GameSession
 
 public class GameManager : MonoBehaviour 
 {
+    public GameObject m_victory = null;
+    public GameObject m_defeat = null;
     public const float kUnitsPerPixel = 1 / 64.0f;
 
     private static GameManager m_instance = null;
@@ -24,6 +26,10 @@ public class GameManager : MonoBehaviour
     private Player m_player = null;
     private List<Enemy> m_enemies = null;
     private List<string> m_deadEnemies = null;
+
+    private bool m_gameStarted = false;
+
+    private bool m_awaitingReset = false;
 
     public GameObject m_startingLevel = null;
     private GameSession m_session = null;
@@ -59,10 +65,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Start ()
+    void Update ()
     {
-        m_session = null;
-        LoadLevel(m_startingLevel.GetComponent<Level>());
+        if (!m_gameStarted && Input.anyKeyDown)
+        {
+            GameObject.Destroy(GameObject.Find("Intro"));
+
+            m_session = null;
+            LoadLevel(m_startingLevel.GetComponent<Level>());
+
+            m_gameStarted = true;
+        }
+
+        if (m_awaitingReset && Input.anyKeyDown)
+        {
+            Application.LoadLevel(0);
+        }
+    }
+
+    public void OnLastLevel ()
+    {
+        m_player = null;
+        m_victory.SetActive(true);
+        m_awaitingReset = true;
     }
 
     public void PersistSessionData()
@@ -71,9 +96,12 @@ public class GameManager : MonoBehaviour
         {
             m_session = new GameSession();
         }
-        m_session.m_playerHP = m_player.CurrentHP;
-        m_session.m_playerEloquence = m_player.CurrentEloquence;
-        m_session.m_selectedSpecialIndex = m_player.m_selectedSpecialIdx;
+        if (m_player != null)
+        {
+            m_session.m_playerHP = m_player.CurrentHP;
+            m_session.m_playerEloquence = m_player.CurrentEloquence;
+            m_session.m_selectedSpecialIndex = m_player.m_selectedSpecialIdx;
+        }
     }
 
     public void LoadLevel (Level levelRef)
@@ -122,6 +150,8 @@ public class GameManager : MonoBehaviour
     public void OnPlayerDied ()
     {
         m_player = null;
+        m_awaitingReset = true;
+        m_defeat.SetActive(true);
     }
 
     public void OnEnemyDied (Enemy e)
