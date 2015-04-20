@@ -36,7 +36,7 @@ public class DoorControl : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null && m_levelRef != null)
             {
-                if (m_levelRef.GetComponent<Level>().m_last)
+                if (GameManager.Instance.IsLastLevel())
                 {
                     GameManager.Instance.OnLastLevel();
                 }

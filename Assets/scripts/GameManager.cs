@@ -88,6 +88,12 @@ public class GameManager : MonoBehaviour
         m_player = null;
         m_victory.SetActive(true);
         m_awaitingReset = true;
+        Time.timeScale = 0.0f;
+    }
+
+    public bool IsLastLevel()
+    {
+        return m_level != null && m_level.m_last;
     }
 
     public void PersistSessionData()
@@ -135,16 +141,22 @@ public class GameManager : MonoBehaviour
         }
         m_level = null;
         
-        m_player.UnloadLevel();
-        m_player = null;
-
-        int numEnemies = m_enemies.Count;
-        for (int i = 0; i < numEnemies; ++i)
+        if (m_player != null)
         {
-            m_enemies[i].UnloadLevel();
+            m_player.UnloadLevel();
+            m_player = null;
         }
-        m_enemies.Clear();
-        m_enemies = null;        
+
+        if (m_enemies != null)
+        {
+            int numEnemies = m_enemies.Count;
+            for (int i = 0; i < numEnemies; ++i)
+            {
+                m_enemies[i].UnloadLevel();
+            }
+            m_enemies.Clear();
+            m_enemies = null;        
+        }
     }
 
     public void OnPlayerDied ()
